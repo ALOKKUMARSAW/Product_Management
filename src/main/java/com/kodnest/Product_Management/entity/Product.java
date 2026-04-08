@@ -1,5 +1,6 @@
 package com.kodnest.Product_Management.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +14,9 @@ public class Product {
 	String name;
 	String description;
 	int price;
-	String photoUrl;
+	@Column(length = 1000)
+    String photoUrl;
+
 	
 	
 	public Product() {
