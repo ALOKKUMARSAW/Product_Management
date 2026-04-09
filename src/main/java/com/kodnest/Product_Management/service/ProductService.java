@@ -2,12 +2,13 @@ package com.kodnest.Product_Management.service;
 
 import java.util.List;
 
+import com.kodnest.Product_Management.dto.ProductRequestDto;
 import com.kodnest.Product_Management.entity.Product;
 
 
 
 public interface ProductService {
-	String addProduct(Product prod);
+	String addProduct(ProductRequestDto prod);
 	String updateProduct(Product prod);
 	String deleteProduct(Long prodId);
 	Product viewProduct(Long prodId);

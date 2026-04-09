@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.kodnest.Product_Management.dto.ProductRequestDto;
 import com.kodnest.Product_Management.entity.Product;
 import com.kodnest.Product_Management.repository.ProductRepository;
 
@@ -17,8 +18,13 @@ implements ProductService{
 		this.repo = repo;
 	}
 	@Override
-	public String addProduct(Product prod) {
-		repo.save(prod);
+	public String addProduct(ProductRequestDto prod) {
+		Product p = new Product();
+		p.setName(prod.getName());
+		p.setDescription(prod.getDescription());
+		p.setPrice(prod.getPrice());
+		p.setPhotoUrl(prod.getPhotoUrl());
+		repo.save(p);
 		return "Product added successfully!";
 	}
 	@Override
