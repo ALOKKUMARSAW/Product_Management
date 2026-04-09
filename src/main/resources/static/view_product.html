@@ -96,23 +96,32 @@
 
     <script>
         async function viewProduct() {
-            const id = document.getElementById("viewId").value;
+            const id = document.getElementById("viewId").value.trim();
+            const messageArea = document.getElementById("messageArea");
+            const resultArea = document.getElementById("resultArea");
+
+            if (!id) {
+                messageArea.innerHTML = `<div class="message">Please enter a valid Product ID.</div>`;
+                resultArea.innerHTML = "";
+                return;
+            }
 
             const response = await fetch(`/viewProduct/${id}`);
 
             if (!response.ok) {
-                document.getElementById("messageArea").innerHTML =
-                    `<div class="message">Unable to fetch product.</div>`;
-                document.getElementById("resultArea").innerHTML = "";
+                if (response.status === 404) {
+                    messageArea.innerHTML = `<div class="message">Product not found for ID ${id}.</div>`;
+                } else {
+                    messageArea.innerHTML = `<div class="message">Unable to fetch product. (${response.status})</div>`;
+                }
+                resultArea.innerHTML = "";
                 return;
             }
 
             const product = await response.json();
 
-            document.getElementById("messageArea").innerHTML =
-                `<div class="message">Product fetched successfully.</div>`;
-
-            document.getElementById("resultArea").innerHTML = `
+            messageArea.innerHTML = `<div class="message">Product fetched successfully.</div>`;
+            resultArea.innerHTML = `
                 <table>
                     <tr>
                         <th>ID</th>
